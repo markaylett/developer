@@ -1,5 +1,5 @@
 module.exports = {
-    base: "/developer",
+    base: "/developer/",
     title: "Reactive Markets Developer",
     description: "Develop for the Reactive Markets Platform",
     head: [
