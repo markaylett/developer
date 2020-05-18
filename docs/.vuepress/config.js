@@ -37,7 +37,7 @@ module.exports = {
                 ]
             }
         ],
-        repo: "reactivemarkets/platform-api",
+        repo: "reactivemarkets/developer",
         smoothScroll: true,
     },
 }
