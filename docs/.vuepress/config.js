@@ -16,7 +16,14 @@ module.exports = {
         "@vuepress/active-header-links",
         "@vuepress/back-to-top",
         "@vuepress/medium-zoom",
-        "@vuepress/nprogress"
+        "@vuepress/nprogress",
+        [
+            '@vuepress/pwa',
+            {
+                serviceWorker: true,
+                updatePopup: true
+            }
+        ]
     ],
     themeConfig: {
         docsDir: "docs",
