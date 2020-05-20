@@ -16,8 +16,7 @@ module.exports = {
         "@vuepress/active-header-links",
         "@vuepress/back-to-top",
         "@vuepress/medium-zoom",
-        "@vuepress/nprogress",
-        "@vuepress/pwa"
+        "@vuepress/nprogress"
     ],
     themeConfig: {
         docsDir: "docs",
