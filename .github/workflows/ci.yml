@@ -5,7 +5,7 @@ on:
     branches:
       - master
 jobs:
-  deploy:
+  ci:
     runs-on: ubuntu-latest
     timeout-minutes: 30
     steps:
