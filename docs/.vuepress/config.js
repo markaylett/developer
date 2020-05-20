@@ -32,13 +32,14 @@ module.exports = {
             {
                 text: "SDK",
                 items: [
-                    { text: "Java", link: "/api/java/" },
-                    { text: "JavaScript", link: "/api/js/" },
-                    { text: "Python", link: "/api/py/" }
+                    { text: "Java", link: "/sdk/java/" },
+                    { text: "JavaScript", link: "/sdk/js/" },
+                    { text: "Python", link: "/sdk/py/" }
                 ]
             }
         ],
         repo: "reactivemarkets/developer",
+        sidebar: "auto",
         smoothScroll: true,
     },
 }
