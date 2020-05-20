@@ -17,5 +17,5 @@
     "background_color": "#000",
     "display": "standalone",
     "orientation": "portrait-primary",
-    "start_url": "/developer"
+    "start_url": "/developer/"
 }
