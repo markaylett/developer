@@ -15,7 +15,7 @@ npm i @reactivemarkets/platform-sdk
 The `FeedClient` class is used to create a WebSocket connection to the feed api. You will need to specify an api key for the connection.
 
 ```js
-import { FeedClient } from "@reactivemarkets/platform-sdk";
+import { FeedClient, toJS } from "@reactivemarkets/platform-sdk";
 
 const feedClient = new FeedClient({
     apiKey: MY_API_KEY,
