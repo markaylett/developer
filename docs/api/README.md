@@ -1,186 +1,59 @@
-# Introduction
+# Platform API
 
-The Reactive Platform provides a API for subscribing to streaming market-data over WebSockets.
+Welcome to the home of the Reactive Platform API! Here you will find information on everything you
+need to get up and running with our real-time API into the cryptocurrency markets.
 
-The API uses [Google Flatbuffers](https://google.github.io/flatbuffers/) to binary-encode
-application messages trasmitted over WebSockets.
-Flatbuffers provides an efficient serialisation/deserialisaton mechanism in terms of both processing
-and space requirements.
+The Reactive platform aims to provide the fastest, most efficient and most stable data
+infrastructure available. We offer several APIs options to cater for different styles of use case
+but all share the same highly optimised technology stack.
 
-## Types
+Our normalised data model allows you to integrate once and then rely on us to provide you with a
+rapidly growing list of data types and trading venues. Additionally, the API gives you flexible
+options of how you would like to view and receive your market data. You can control the streaming
+data frequency, specify the depth of the order book or whether you would like the data grouped into
+more suitable aggregate levels. For example, you could choose to receive the top 5 levels of BTCUSD
+every 1 second and aggregated into groups of 10 cents or the top 10 levels of BTCUSD every 100
+milliseconds as the raw order book.
 
-### String Identifiers
+## API Keys
 
-String identifiers cannot be more than 48 characters in length.
-The server will silently discard any characters beyond this limit.
+To access the Reactive WebSocket API you will need a Platform API key. A new API key can be
+generated in the platform in three steps:
 
-### Symbols
+1. login to the [Reactive Platform](https://platform.reactivemarkets.com) or create an account;
+2. navigate to the [API Keys section](https://platform.reactivemarkets.com/keys) from the top left
+   menu bar;
+3. click the "Create New API Key" button and make a note of your new API key.
 
-Symbols are short, string identifiers of no more than 16 characters.
-They are typically used to identify reference-data records such as assets, instruments, venues and
-markets.
-The `BTCUSD-BFN` market symbol, for example, identifies the `BTC/USD` instrument on the `BFN`
-(Bitfinex) venue.
+::: warning
+Your new API key will only be displayed once when generated. If you lose your API key, then you will
+need to generate a new one using the steps above.
+:::
 
-### Timestamps
+## API Options
 
-Timestamps are encoded as 64-bit integers, which represent the number of nanoseconds since Unix
-epoch.
+Currently we support the following APIs:
 
-## Enumerations
+- Streaming binary data over WebSocket API.
+- Streaming FIX data FIX API.
+- REST API.
 
-### FeedType
+### WebSocket API
 
-The `FeedType` enum specifies the feed type, which may include different aggregation styles,
-liquidity views, public trade feeds, trading signals, and other analytics.
+Our WebSocket API is optimised for fast, efficient streaming market data. It uses a binary data
+format to reduce data volumes and improve processing efficiency within our platform and in your
+client. By optimising the format, we are able to pack order book data into frequent snapshots
+allowing you to consume data that requires no order book maintenance in your client code - as soon
+as you receive it, it’s ready to use. The feed request API offers various parameters to control
+exactly what data you’d like to see and how frequently you’d like to see it.
 
-| Value   | Comments                  |
-|---------|---------------------------|
-| Default | Default market-data view. |
-| Trade   | Public trade feed.        |
+- **Depth Control**: Only receive the data that you want to see, saving data and wasted effort of
+  receiving and maintaining data that you don't need.
+- **Order Book Snapshots**: Let our optimised book building do the hard work and simply consume the
+  data in a ready to use format.
+- **Update Frequency**: Choose the optimal data frequency for your use case and avoid the effort of
+  continually maintaining the order book if you don't need it.
+- **Grouping**: Choose between raw order book snapshots or let us aggregate the data stream for you.
 
-### Side
-
-The `Side` enum specifies the buy or sell side of the market.
-
-| Value | Comments     |
-|-------|--------------|
-| None  | Unspecified. |
-| Sell  | Sell side.   |
-| Buy   | Buy side.    |
-
-### SubReqType
-
-The `SubReqType` enum specifies the subscription request type.
-
-| Value       | Comments                                   |
-|-------------|--------------------------------------------|
-| Subscribe   | Subscribe to one or more market feeds.     |
-| Unsubscribe | Unsubscribe from one or more market feeds. |
-
-## Structs
-
-### MDLevel2
-
-MDLevel2 struct represents an entry in the level 2 order-book. A level 2 order-book comprises one or
-more levels, where each level is aggregated either by price or quantity, depending on feed-type.
-
-| Field Name | Type    | Comments  |
-|------------|---------|-----------|
-| qty        | float64 | Quantity. |
-| price      | float64 | Price.    |
-
-## Messages
-
-### Header
-
-The `Message` union type adds with the following header fields, which are present on all messages
-sent from the server.
-
-| Field Name | Type  | Comments                                   |
-|------------|-------|--------------------------------------------|
-| tts        | int64 | Transmission timestamp set by the gateway. |
-
-### FeedRequest
-
-The `FeedRequest` message represents a client request to either subscribe to or unsubscribe from one
-or more market feeds.
-
-| Field Name     | Type       | Comments                                              |
-|----------------|------------|-------------------------------------------------------|
-| req\_id        | string     | Request identifier assigned by the client.            |
-| sub\_req\_type | SubReqType | Subscription request type.                            |
-| feed\_type     | FeedType   | Feed type.                                            |
-| grouping       | uint16     | The aggregation grouping granularity.                 |
-| depth          | int16      | The desired number of levels in the market-data book. |
-| frequency      | int16      | The desired update frequency.                         |
-| markets        | [string]   | The set of markets to which the request applies.      |
-
-The `grouping` field is commonly used to describe the tick grouping at each level in the order book,
-but it may also be used for other purposes. This feature is only available on supported feeds.
-
-The `depth` field is the maximum number of levels in the market-data book. Currently supported
-values are: 1, 5, 10 and 20. This feature is only available on supported feeds.
-
-The `frequency` is the feed update frequency or conflation period. The frequency need not be
-specified when unsubscribing. *This feature is not currently implemented.*
-
-### FeedRequestAccept
-
-The `FeedRequestAccept` message is sent by the server to acknowledge a successful `FeedRequest`.
-
-| Field Name | Type   | Comments                                   |
-|------------|--------|--------------------------------------------|
-| req\_id    | string | Request identifier assigned by the client. |
-| feed\_id   | int32  | Feed identifier.                           |
-
-### FeedRequestReject
-
-The `FeedRequestReject` message is sent by the server when a `FeedRequest` cannot be satisfied for
-business, operational, or technical reasons.
-
-| Field Name     | Type   | Comments                                    |
-|----------------|--------|---------------------------------------------|
-| req\_id        | string | Request identifier assigned by the client.  |
-| error\_code    | int32  | Error code indicating the reject reason.    |
-| error\_message | string | Error message describing the reject reason. |
-
-### MDSnapshotL2
-
-The `MDSnapshotL2` messages is sent by the server when there is a market-data update.
-
-| Field Name  | Type       | Comments                                                           |
-|-------------|------------|--------------------------------------------------------------------|
-| source\_ts  | int64      | Source system timestamp.                                           |
-| source      | string     | Source system identifier.                                          |
-| market      | string     | Market symbol.                                                     |
-| feed\_id    | int32      | Feed identifier.                                                   |
-| id          | int64      | A marker-specific identifier that uniquely identifies this update. |
-| depth       | int16      | The indicates the maximum number of levels in this book.           |
-| flags       | uint16     | Bitset describing the attributes of the market or update.          |
-| bid\_side   | [MDLevel2] | Level-2 bid data.                                                  |
-| offer\_side | [MDLevel2] | Level-2 offer data.                                                |
-
-The `source_ts` timestamp may be zero when the book is cleared due to a disconnect from the source
-system.
-
-The `id` field is not guaranteed to be monotonically increasing; it may be periodically reset by the
-source system. Clients should treat this as an opaque identifier and should not attempt to infer
-meaning from its content. Zero is reserved as a special case for clearing or resetting the book.
-This feature is only available on supported feed-types.
-
-### PublicTrade
-
-The `PublicTrade` message is sent by the server a public trade is received from an source system.
-
-| Field Name  | Type    | Comments                                                      |
-|-------------|---------|---------------------------------------------------------------|
-| source\_ts  | int64   | Source system timestamp.                                      |
-| source      | string  | Source system identifier.                                     |
-| market      | string  | Market symbol.                                                |
-| feed\_id    | int32   | Feed identifier.                                              |
-| trade\_id   | string  | Optional identifier or sequence number assigned by the venue. |
-| flags       | uint16  | Bitset describing the attributes of the market or update.     |
-| side        | Side    | Trade direction.                                              |
-| qty         | float64 | Trade quantity.                                               |
-| price       | float64 | Trade price.                                                  |
-| exec\_venue | string  | Underyling execution venue.                                   |
-
-This `side` field is always from the taker's perspective:
-- Buy: aggressor/taker bought;
-- Sell: aggressor/taker sold.
-
-The `qty` field may be zero if the underlying venue does not publish this information.
-
-### SessionStatus
-
-The `SessionStatus` message is sent by the server to indicate a change in the session status for an
-upstream system. This is a system wide status that applies to all feeds and markets provided by the
-source system.
-
-| Field Name | Type   | Comments                  |
-|------------|--------|---------------------------|
-| source\_ts | int64  | Source system timestamp.  |
-| source     | string | Source system identifier. |
-| code       | int    | Status code.              |
-| message    | string | Detailed status message.  |
+See [WebSocket](/websocket/) and [FlatBuffers](/flatbuffers/install/) sections for full
+documentation.

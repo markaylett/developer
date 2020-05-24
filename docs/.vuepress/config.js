@@ -36,13 +36,35 @@ module.exports = {
                 link: "/api/",
             },
             {
+                text: "WebSocket",
+                link: "/websocket/",
+            },
+            {
+                text: "FlatBuffers",
+                link: "/flatbuffers/",
+                items: [
+                    {
+                        text: "Install",
+                        link: "/flatbuffers/install/",
+                    },
+                    {
+                        text: "Schema",
+                        link: "/flatbuffers/schema/",
+                    },
+                ]
+            },
+            {
                 text: "SDK",
                 items: [
                     { text: "Java", link: "/sdk/java/" },
                     { text: "JavaScript", link: "/sdk/js/" },
                     { text: "Python", link: "/sdk/py/" }
                 ]
-            }
+            },
+            {
+                text: "Pricing",
+                link: "/pricing/",
+            },
         ],
         repo: "reactivemarkets/developer",
         sidebar: "auto",
