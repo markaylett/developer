@@ -89,14 +89,19 @@ or more market feeds.
 | frequency      | int16      | The desired update frequency.                         |
 | markets        | [string]   | The set of markets to which the request applies.      |
 
-The `grouping` field is commonly used to describe the tick grouping at each level in the order book,
+The `grouping` field is commonly used to describe the tick grouping at each level in the order-book,
 but it may also be used for other purposes. This feature is only available on supported feeds.
 
 The `depth` field is the maximum number of levels in the market-data book. Currently supported
 values are: 1, 5, 10 and 20. This feature is only available on supported feeds.
 
-The `frequency` is the feed update frequency or conflation period. The frequency need not be
-specified when unsubscribing. *This feature is not currently implemented.*
+The `frequency` is the feed update frequency expressed as a multiple of the feed's conflation
+period. For example: a frequency of 10 for a feed with a 100 millisecond conflation period, will
+limit the number of updates to one per second. The frequency need not be specified when
+unsubscribing. This feature is only available on supported feeds.
+
+N.B. The conflation period is currently set to one second, but will be reduced as beta testing
+progresses.
 
 ### FeedRequestAccept
 
@@ -106,6 +111,9 @@ The `FeedRequestAccept` message is sent by the server to acknowledge a successfu
 |------------|--------|--------------------------------------------|
 | req\_id    | string | Request identifier assigned by the client. |
 | feed\_id   | int32  | Feed identifier.                           |
+
+The `feed_id` field can be used to correlate feed updates with the parameters specified in the
+`FeedRequest`.
 
 ### FeedRequestReject
 

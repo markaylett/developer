@@ -2,12 +2,12 @@
 
 ## Introduction
 
-The reactive-platform package is python API to connect Platform. It handles connection,
-request serialization and deserialization in python.
+The `reactive-platform` package is a Python API for connecting to the Reactive Platform. It handles
+connectivity, request serialisation and deserialisation in Python.
 
 ## Installation
 
-The package supports python3.7+, but not for lower versions.
+The package supports Python 3.7 and above.
 
 ```bash
 $ pip install reactive-platform
@@ -15,9 +15,9 @@ $ pip install reactive-platform
 
 ## Usage
 
-The `FeedClient` class is used to create a WebSocket connection to the feed api. You will need to
-specify an api key for the connection. To consume data via `FeedClient`, you should create an
-client handler coroutine to send requests, and a data_handler to process data.
+The `FeedClient` class is used to create a WebSocket connection to the feed gateway. You will need
+to specify an API key for the connection. To consume data via the `FeedClient`, you should create a
+client handler co-routine to send requests, and a `data_handler` to process data.
 
 ```python
 import asyncio
@@ -41,4 +41,4 @@ run = asyncio.ensure_future(client.run(client_handler=feed_client_handler,
 asyncio.get_event_loop().run_until_complete(run)
 ```
 
-There are more examples and introductions under reactive-platform package.
+There are more examples along with an introduction under `reactive-platform` package.
