@@ -36,24 +36,6 @@ module.exports = {
                 link: "/api/",
             },
             {
-                text: "WebSocket",
-                link: "/websocket/",
-            },
-            {
-                text: "FlatBuffers",
-                link: "/flatbuffers/",
-                items: [
-                    {
-                        text: "Install",
-                        link: "/flatbuffers/install/",
-                    },
-                    {
-                        text: "Schema",
-                        link: "/flatbuffers/schema/",
-                    },
-                ]
-            },
-            {
                 text: "SDK",
                 items: [
                     { text: "Java", link: "/sdk/java/" },
@@ -73,7 +55,26 @@ module.exports = {
             },
         ],
         repo: "reactivemarkets/developer",
-        sidebar: "auto",
+        sidebar: {
+            "/api/": [
+                {
+                    title: "API",
+                    collapsable: false,
+                    children: [
+                        "",
+                        "websocket/"
+                    ],
+                },
+                {
+                    title: "Flatbuffers",
+                    collapsable: false,
+                    children: [
+                        "flatbuffers/install/", 
+                        "flatbuffers/schema/", 
+                    ]
+                }
+            ]
+        },
         smoothScroll: true,
     },
 }

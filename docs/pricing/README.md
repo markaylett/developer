@@ -1,3 +1,6 @@
+---
+sidebar: auto
+---
 # Pricing
 
 We offer a simple pricing model that reflects the amount of data that we publish to your account.

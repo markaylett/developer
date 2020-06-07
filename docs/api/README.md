@@ -55,5 +55,5 @@ exactly what data you’d like to see and how frequently you’d like to see it.
   continually maintaining the order book if you don't need it.
 - **Grouping**: Choose between raw order book snapshots or let us aggregate the data stream for you.
 
-See [WebSocket](/websocket/) and [FlatBuffers](/flatbuffers/install/) sections for full
+See [WebSocket](/api/websocket/) and [FlatBuffers](/api/flatbuffers/install/) sections for full
 documentation.

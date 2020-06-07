@@ -1,3 +1,6 @@
+---
+sidebar: auto
+---
 # Limit Order Books
 
 ## Introduction
@@ -10,6 +13,7 @@ understanding the market-data published by these Exchanges.
 An Exchange is a place where traders come together to exchange goods or services. Sellers offer
 their goods or services to buyers that bid for them. The Exchange accepts bids and offers in the
 form of orders and attempts to match them:
+
 - bids are submitted as buy orders;
 - offers are submitted as sell orders.
 
@@ -28,10 +32,12 @@ Consider the following LOB with two price levels:
 |     2 |       5 |      9648 |      5 |        9653 |         3 |
 
 For each given price level:
+
 - the quantity is the sum of all order quantities at that level;
 - the "spread" is the difference between the bid and offer price.
 
 The first level, or Top Of Book (TOB), shows the best bid and offer available in the order book:
+
 - the bids are arranged in descending order with the best bid at the top;
 - the offers are arranged in ascending order with the best offer at the top.
 
