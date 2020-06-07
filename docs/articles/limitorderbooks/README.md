@@ -19,7 +19,7 @@ form of orders and attempts to match them:
 
 ## Level 2 Order Books
 
-The "liquidity" in the order book can be viewed in multiple ways. In this article, we show the
+The "liquidity" available in the LOB can be viewed in multiple ways. In this article, we show the
 liquidity in the LOB as a stack of "price levels", where each price level comprises one or more
 orders with the same price and side. This representation is known as a level 2 order book aggregated
 by price.
@@ -131,15 +131,20 @@ This aggressive order will result in the following trades:
 ## Makers and Takers
 
 Traders that submit aggressive orders are known as "takers". Traders that submit passive orders are
-known as "makers". Each trade transaction comprises two matched orders. These orders can be
-classified both in terms of a buyer and a seller or a maker and a taker. To avoid confusion, trades
-are often referred to from the taker's perspective as "paid" and "given":
+known as "makers". Market-makers play an important role in providing liquidity to the market,
+because, under normal market conditions, they are willing to quote two-way prices on a continual
+basis, thus ensuring that there is always a maker available to take the opposing side of a taker's
+trade.
+
+Each trade transaction comprises two matched orders. These orders can be classified both in terms of
+a buyer and a seller or a maker and a taker. To avoid confusion, trades are often referred to from
+the taker's perspective as "paid" and "given":
 
 Paid: taker buys
 
 Given: taker sells
 
-This terminology is particular relevant for public trade feeds, where an Exchange my publicise
+This terminology is particular relevant for public trade feeds, where an Exchange may publicise
 anonymised trade information from the taker's perspective.
 
 ## Summary
