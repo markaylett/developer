@@ -62,6 +62,12 @@ module.exports = {
                 ]
             },
             {
+                text: "Articles",
+                items: [
+                    { text: "Limit Order Books", link: "/articles/limitorderbooks/" },
+                ]
+            },
+            {
                 text: "Pricing",
                 link: "/pricing/",
             },
