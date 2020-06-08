@@ -30,20 +30,20 @@ cd platform-java
 A sample implementation using the Tyrus websocket client has been included in the SDK. You will need to specify an api key for the connection.
 
 ```java
-  String uri = "wss://api.platform.reactivemarkets.com/feed";
-  String apiKey = "<your key>";
+String uri = "wss://api.platform.reactivemarkets.com/feed";
+String apiKey = "<your key>";
 
-  TyrusWebSocketClient client = newWebSocketClient(uri, apiKey, handler);
-  // blocking connect to the websocket
-  client.connect();
-  // create a unique request id for this request - this will be returned on the subscription Accept/Reject
-  final String requestId = UUID.randomUUID().toString();
-  // create a new request with default settings for conflation, depth and grouping
-  final FeedRequestParameters request = new FeedRequestParameters(requestId, "BTCUSD-CNB");
-    
-  final ByteBuffer buffer = FeedRequestMessageFactory.newSubscription(request);
+TyrusWebSocketClient client = newWebSocketClient(uri, apiKey, handler);
+// blocking connect to the websocket
+client.connect();
+// create a unique request id for this request - this will be returned on the subscription Accept/Reject
+final String requestId = UUID.randomUUID().toString();
+// create a new request with default settings for conflation, depth and grouping
+final FeedRequestParameters request = new FeedRequestParameters(requestId, "BTCUSD-CNB");
 
-  client.send(buffer);
+final ByteBuffer buffer = FeedRequestMessageFactory.newSubscription(request);
+
+client.send(buffer);
 ```
 
 A full subscription example for the level 2 market data feed can be seen in  `com.reactivemarkets.platform.example.feed.FeedGatewayL2Subscription` and a public trade example in `com.reactivemarkets.platform.example.feed.FeedGatewayTradeSubscription`.
