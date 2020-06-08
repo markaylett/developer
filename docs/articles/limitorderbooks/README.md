@@ -47,11 +47,9 @@ The LOB gets its name from a standard order type known as a "limit" order; a LOB
 book of limit orders.
 
 Orders sent to the LOB may also specify a "limit" price. The limit price specifies the worst price
-at which the trader is willing to trade.
-
-Limit prices may be specified on order types besides limit orders, so a limit price does not
-necessarily imply a limit order. To avoid any confusion, the limit price is subsequently referred to
-simply as the price.
+at which the trader is willing to trade. Limit prices may be specified on order types besides limit
+orders, so a limit price does not necessarily imply a limit order. To avoid any confusion, the limit
+price is subsequently referred to simply as the price.
 
 ## Resting Orders
 
@@ -82,7 +80,7 @@ A limit order to "SELL 3@9653" will "join" the second level on the offer side:
 | Level | Bid Qty | Bid Price | Spread | Offer Price | Offer Qty |
 |-------|---------|-----------|--------|-------------|-----------|
 |     1 |       2 |      9650 |      1 |        9651 | 1         |
-|     2 |       1 |      9649 |      3 |        9653 | **6**     |
+|     2 |       1 |      9649 |      4 |        9653 | **6**     |
 |     3 |       5 |      9648 |        |             |           |
 
 Note that the number of orders at each price level cannot be derived from the quantity. The order
@@ -91,8 +89,8 @@ count is often shown as a separate "count" field.
 ## Order Matching
 
 In a classic LOB, Matching happens by price/time priority. This means that orders are matched first
-by price, and then by order age (time). If multiple orders exist at the same price, for example,
-then the oldest order will be matched first.
+by price, and then by time (order age). If multiple orders exist at the same price level, for
+example, then the oldest order will be matched first.
 
 Consider the effect of a limit order to "BUY 2@9652" that crosses the spread:
 
@@ -104,18 +102,18 @@ Consider the effect of a limit order to "BUY 2@9652" that crosses the spread:
 |     4 |       5 |      9648 |        |             |           |
 
 In this example, the order to "BUY 2@9652" crossed with the first level on the offer side ("OFFER
-1@9651"). The price on the order was higher than the level it crossed, so the resulting trade is
-executed at a better price of 9651. This is known as a price improvement.
+1@9651"). The price on the order was higher than the level it crossed, so the resulting trade will
+have an improved price of 9651.
 
 The limit order was not completely filled, because there was insufficient quantity on the offer
-side. And because this is a limit order, any quantity remaining after the matching phase will rest
-on the bid side, hence the new price level on the bid side at TOB.
+side. And because this is a limit order, any quantity remaining after the matching phase is complete
+will rest on the bid side, hence the new price level on the bid side at TOB.
 
 Orders that cross the spread and "take" liquidity from the order book are known as an "aggressive"
 orders. By contrast, orders that do not cross the spread are known as "passive" orders.
 
-Aggressive order may also sweep through multiple price levels, as demonstrated in the following
-example where an aggressive order to "SELL 4@9649" sweeps through the top three levels of the bid
+Aggressive orders may also "sweep" through multiple price levels, as demonstrated in the following
+example, where an aggressive order to "SELL 4@9649" sweeps through the top three levels of the bid
 side:
 
 | Level | Bid Qty | Bid Price | Spread | Offer Price | Offer Qty |
@@ -138,11 +136,11 @@ trade.
 
 Each trade transaction comprises two matched orders. These orders can be classified both in terms of
 a buyer and a seller or a maker and a taker. To avoid confusion, trades are often referred to from
-the taker's perspective as "paid" and "given":
+the taker's perspective as "paid" or "given":
 
-Paid: taker buys
+Paid: taker bought or "lifted the offer".
 
-Given: taker sells
+Given: taker sold or "hit the bid".
 
 This terminology is particular relevant for public trade feeds, where an Exchange may publicise
 anonymised trade information from the taker's perspective.
