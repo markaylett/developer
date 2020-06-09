@@ -5,10 +5,16 @@ sidebar: auto
 
 ## Introduction
 
-Most electronic Exchanges use Limit Order Books (LOBs) to match orders placed by buyers and sellers.
-LOBs have entered the mainstream in recent years with the popularisation of Cryptocurrency
-Exchanges. This article describes how a LOB works. Understanding how a LOB works is essential for
-understanding the market-data published by these Exchanges.
+This is the first in a series of articles exploring market-data and Exchange connectivity. Industry
+jargon and the vast array of connectivity options can be overwhelming for newcomers. In this
+article, we aim to establish a solid foundation for future discussions by explaining how a Limit
+Order Book (LOB) works and demystifying the terminology that surrounds them.
+
+## Exchanges
+
+Most electronic Exchanges use LOBs to match orders placed by buyers and sellers. LOBs have entered
+the mainstream in recent years with the popularisation of Cryptocurrency Exchanges. Understanding
+how a LOB works is essential for understanding the market-data published by these Exchanges.
 
 An Exchange is a place where traders come together to exchange goods or services. Sellers offer
 their goods or services to buyers that bid for them. The Exchange accepts bids and offers in the
@@ -19,7 +25,7 @@ form of orders and attempts to match them:
 
 ## Level 2 Order Books
 
-The "liquidity" available in the LOB can be viewed in multiple ways. In this article, we show the
+The "liquidity" available in the LOB can be viewed in multiple ways. In this article, we present the
 liquidity in the LOB as a stack of "price levels", where each price level comprises one or more
 orders with the same price and side. This representation is known as a level 2 order book aggregated
 by price.
@@ -75,16 +81,16 @@ because its price is better than the current TOB:
 |     2 |       1 |      9649 |      4 |        9653 |         3 |
 |     3 |       5 |      9648 |        |             |           |
 
-A limit order to "SELL 3@9653" will "join" the second level on the offer side:
+Similarly, a limit order to "SELL 3@9653" will "join" the second level on the offer side:
 
 | Level | Bid Qty | Bid Price | Spread | Offer Price | Offer Qty |
 |-------|---------|-----------|--------|-------------|-----------|
-|     1 |       2 |      9650 |      1 |        9651 | 1         |
-|     2 |       1 |      9649 |      4 |        9653 | **6**     |
+|     1 |       2 |      9650 |      1 |        9651 |         1 |
+|     2 |       1 |      9649 |      4 |        9653 |     **6** |
 |     3 |       5 |      9648 |        |             |           |
 
-Note that the number of orders at each price level cannot be derived from the quantity. The order
-count is often shown as a separate "count" field.
+Note that the number of orders at each price level cannot be derived from the aggregate quantity.
+The order count is often shown as a separate "count" field.
 
 ## Order Matching
 
@@ -112,7 +118,7 @@ will rest on the bid side, hence the new price level on the bid side at TOB.
 Orders that cross the spread and "take" liquidity from the order book are known as an "aggressive"
 orders. By contrast, orders that do not cross the spread are known as "passive" orders.
 
-Aggressive orders may also "sweep" through multiple price levels, as demonstrated in the following
+Aggressive orders may "sweep" through multiple price levels, as demonstrated in the following
 example, where an aggressive order to "SELL 4@9649" sweeps through the top three levels of the bid
 side:
 
