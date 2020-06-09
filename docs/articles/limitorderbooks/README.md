@@ -7,8 +7,8 @@ sidebar: auto
 
 This is the first in a series of articles exploring market-data and Exchange connectivity. Industry
 jargon and the vast array of connectivity options can be overwhelming for newcomers. In this
-article, we aim to establish a solid foundation for future discussions by explaining how a Limit
-Order Book (LOB) works and demystifying the terminology that surrounds them.
+article, we establish the foundations for future discussions by explaining how a Limit Order Book
+(LOB) works and demystifying the terminology that surrounds them.
 
 ## Exchanges
 
@@ -22,6 +22,8 @@ form of orders and attempts to match them:
 
 - bids are submitted as buy orders;
 - offers are submitted as sell orders.
+
+Exchanges are also known as "venues", although Exchanges are not the only kind of trading venue.
 
 ## Level 2 Order Books
 
@@ -52,17 +54,17 @@ The first level, or Top Of Book (TOB), shows the best bid and offer available in
 The LOB gets its name from a standard order type known as a "limit" order; a LOB is essentially a
 book of limit orders.
 
-Orders sent to the LOB may also specify a "limit" price. The limit price specifies the worst price
-at which the trader is willing to trade. Limit prices may be specified on order types besides limit
-orders, so a limit price does not necessarily imply a limit order. To avoid any confusion, the limit
-price is subsequently referred to simply as the price.
+The price on a limit order is known as the limit price. The limit price specifies the worst price at
+which the trader is willing to trade (highest for bids and lowest for offers). This article deals
+exclusively with limit orders, so the limit price is subsequently referred to simply as the price.
 
 ## Resting Orders
 
 A trade happens when a buy or sell order is matched with one or more pre-existing orders in the LOB.
 How an order behaves when it is not immediately filled varies between order types.
 
-Limit orders that are not immediately filled are placed in the LOB according to their side (buy or
+Limit orders may also specify how long they are "good for". If a limit order is good for a period of
+time, and it is not immediately filled, then it is placed in the LOB according to its side (buy or
 sell) and price. An unmatched limit order that is live or "working" in the LOB is known as a
 "resting" order. Order types that cannot rest in the order book are either immediately filled or
 cancelled.
@@ -107,13 +109,13 @@ Consider the effect of a limit order to "BUY 2@9652" that crosses the spread:
 |     3 |       1 |      9649 |        |             |           |
 |     4 |       5 |      9648 |        |             |           |
 
-In this example, the order to "BUY 2@9652" crossed with the first level on the offer side ("OFFER
-1@9651"). The price on the order was higher than the level it crossed, so the resulting trade will
-have an improved price of 9651.
+In this example, the limit order to "BUY 2@9652" crossed with the first level on the offer side
+("OFFER 1@9651"). The price on the order was higher than the level it crossed, so the resulting
+trade will have an improved price of 9651.
 
 The limit order was not completely filled, because there was insufficient quantity on the offer
-side. And because this is a limit order, any quantity remaining after the matching phase is complete
-will rest on the bid side, hence the new price level on the bid side at TOB.
+side. And assuming this order is good for some time, any quantity remaining after the matching phase
+is complete will rest on the bid side, hence the new price level on the bid side at TOB.
 
 Orders that cross the spread and "take" liquidity from the order book are known as an "aggressive"
 orders. By contrast, orders that do not cross the spread are known as "passive" orders.
