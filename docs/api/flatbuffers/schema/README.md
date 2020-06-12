@@ -86,7 +86,7 @@ or more market feeds.
 | feed\_type     | FeedType   | Feed type.                                            |
 | grouping       | uint16     | The aggregation grouping granularity.                 |
 | depth          | int16      | The desired number of levels in the market-data book. |
-| frequency      | int16      | The desired update frequency.                         |
+| frequency      | int16      | The desired update frequency in milliseconds.         |
 | markets        | [string]   | The set of markets to which the request applies.      |
 
 The `grouping` field is commonly used to describe the tick grouping at each level in the order-book,
@@ -95,13 +95,14 @@ but it may also be used for other purposes. This feature is only available on su
 The `depth` field is the maximum number of levels in the market-data book. Currently supported
 values are: 1, 5, 10 and 20. This feature is only available on supported feeds.
 
-The `frequency` is the feed update frequency expressed as a multiple of the feed's conflation
-period. For example: a frequency of 10 for a feed with a 100 millisecond conflation period, will
-limit the number of updates to one per second. The frequency need not be specified when
-unsubscribing. This feature is only available on supported feeds.
+The `frequency` is the feed update frequency expressed in milliseconds. The requested frequency will
+be rounded up to the nearest multiple of the conflation period. If the frequency is zero or
+unspecified, then it defaults to one second. For example: if the platform conflation period is set
+to 100 milliseconds, and a user requests 150 milliseconds, then their actual update frequency will
+be 200 milliseconds. The frequency need not be specified when unsubscribing. This feature is only
+available on supported feeds.
 
-N.B. The conflation period is currently set to one second, but will be reduced as beta testing
-progresses.
+N.B. The conflation period for our beta platform is currently set to 200 milliseconds.
 
 ### FeedRequestAccept
 
