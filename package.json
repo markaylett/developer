@@ -22,7 +22,7 @@
   },
   "homepage": "https://github.com/reactivemarkets/reactivemarkets.github.io#readme",
   "dependencies": {
-    "@vuepress/plugin-active-header-links": "^1.5.1",
+    "@vuepress/plugin-active-header-links": "^1.5.2",
     "@vuepress/plugin-back-to-top": "^1.5.1",
     "@vuepress/plugin-medium-zoom": "^1.5.1",
     "@vuepress/plugin-nprogress": "^1.5.1",
