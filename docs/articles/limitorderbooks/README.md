@@ -104,7 +104,7 @@ Consider the effect of a limit order to "BUY 2@9652" that crosses the spread:
 
 | Level | Bid Qty | Bid Price | Spread | Offer Price | Offer Qty |
 |-------|---------|-----------|--------|-------------|-----------|
-|     1 |   **1** |  **9651** |      2 |        9653 |         6 |
+|     1 |   **1** |  **9652** |      2 |        9653 |         6 |
 |     2 |       2 |      9650 |        |             |           |
 |     3 |       1 |      9649 |        |             |           |
 |     4 |       5 |      9648 |        |             |           |
@@ -130,7 +130,7 @@ side:
 
 This aggressive order will result in the following trades:
 
-1. 1@9651
+1. 1@9652
 2. 2@9650
 3. 1@9649
 
