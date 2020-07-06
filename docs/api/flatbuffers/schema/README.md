@@ -24,13 +24,14 @@ epoch.
 
 ### FeedType
 
-The `FeedType` enum specifies the feed type, which may include different aggregation styles,
-liquidity views, public trade feeds, trading signals, and other analytics.
+The `FeedType` enum specifies the feed type, which may include aggregate views, liquidity views,
+public trade feeds, public liquidation feeds, trading signals, and other analytics.
 
-| Value   | Comments                  |
-|---------|---------------------------|
-| Default | Default market-data view. |
-| Trade   | Public trade feed.        |
+| Value       | Comments                  |
+|-------------|---------------------------|
+| Default     | Default market-data view. |
+| Trade       | Public trade feed.        |
+| Liquidation | Public liquidation feed.  |
 
 ### Side
 
@@ -153,26 +154,45 @@ This feature is only available on supported feed-types.
 
 ### PublicTrade
 
-The `PublicTrade` message is sent by the server a public trade is received from an source system.
+The `PublicTrade` message is sent by the server when a public trade is received from an source
+system.
 
-| Field Name  | Type    | Comments                                                      |
-|-------------|---------|---------------------------------------------------------------|
-| source\_ts  | int64   | Source system timestamp.                                      |
-| source      | string  | Source system identifier.                                     |
-| market      | string  | Market symbol.                                                |
-| feed\_id    | int32   | Feed identifier.                                              |
-| trade\_id   | string  | Optional identifier or sequence number assigned by the venue. |
-| flags       | uint16  | Bitset describing the attributes of the market or update.     |
-| side        | Side    | Trade direction.                                              |
-| qty         | float64 | Trade quantity.                                               |
-| price       | float64 | Trade price.                                                  |
-| exec\_venue | string  | Underyling execution venue.                                   |
+| Field Name  | Type    | Comments                                         |
+|-------------|---------|--------------------------------------------------|
+| source\_ts  | int64   | Source system timestamp.                         |
+| source      | string  | Source system identifier.                        |
+| market      | string  | Market symbol.                                   |
+| feed\_id    | int32   | Feed identifier.                                 |
+| trade\_id   | string  | Optional trade identifier assigned by the venue. |
+| flags       | uint16  | Bitset describing the attributes of the trade.   |
+| side        | Side    | Trade direction.                                 |
+| qty         | float64 | Trade quantity.                                  |
+| price       | float64 | Trade price.                                     |
+| exec\_venue | string  | Underyling execution venue.                      |
 
 This `side` field is always from the taker's perspective:
 - Buy: aggressor/taker bought;
 - Sell: aggressor/taker sold.
 
 The `qty` field may be zero if the underlying venue does not publish this information.
+
+### LiquidationOrder
+
+The `LiquidationOrder` message is sent by the server when a liquidation order to liquidate a
+position is received from an source system.
+
+| Field Name  | Type    | Comments                                                   |
+|-------------|---------|------------------------------------------------------------|
+| source\_ts  | int64   | Source system timestamp.                                   |
+| source      | string  | Source system identifier.                                  |
+| market      | string  | Market symbol.                                             |
+| feed\_id    | int32   | Feed identifier.                                           |
+| order\_id   | string  | Optional order identifier assigned by the venue.           |
+| flags       | uint16  | Bitset describing the attributes of the liquidation order. |
+| side        | Side    | Order side.                                                |
+| qty         | float64 | Order quantity.                                            |
+| price       | float64 | Order price.                                               |
+| exec\_venue | string  | Underyling execution venue.                                |
 
 ### SessionStatus
 
